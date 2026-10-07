@@ -1,0 +1,805 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-display: 'Fraunces', Georgia, serif;
+    --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  h1, h2, .font-display {
+    font-family: var(--font-display);
+    text-wrap: balance;
+  }
+
+  .font-mono, .tabular-nums {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+/* OS-level print & screen capture stylesheet denial */
+@media print {
+  html, body {
+    display: none !important;
+    visibility: hidden !important;
+  }
+}
+
+.secure-content-surface {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+@keyframes watermarkDrift {
+  0% {
+    transform: translate3d(0px, 0px, 0) rotate(-24deg);
+  }
+  25% {
+    transform: translate3d(14px, -9px, 0) rotate(-22.5deg);
+  }
+  50% {
+    transform: translate3d(-11px, 12px, 0) rotate(-25.5deg);
+  }
+  75% {
+    transform: translate3d(9px, 15px, 0) rotate(-23deg);
+  }
+  100% {
+    transform: translate3d(0px, 0px, 0) rotate(-24deg);
+  }
+}
+
+.watermark-pattern-drift {
+  animation: watermarkDrift 11s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+
+/* iOS-Inspired "Fluid Glass" / Frosted Glass UI System */
+.ios-glass-header {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.82) 0%,
+    rgba(255, 255, 255, 0.68) 100%
+  );
+  -webkit-backdrop-filter: saturate(190%) blur(24px);
+  backdrop-filter: saturate(190%) blur(24px);
+  box-shadow:
+    0 1px 0 0 rgba(255, 255, 255, 0.7) inset,
+    0 8px 30px -12px rgba(15, 23, 42, 0.08);
+  transition: background 220ms cubic-bezier(0.16, 1, 0.3, 1),
+    backdrop-filter 220ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dark .ios-glass-header {
+  background: linear-gradient(
+    180deg,
+    rgba(15, 23, 42, 0.82) 0%,
+    rgba(15, 23, 42, 0.68) 100%
+  );
+  -webkit-backdrop-filter: saturate(190%) blur(24px);
+  backdrop-filter: saturate(190%) blur(24px);
+  box-shadow:
+    0 1px 0 0 rgba(255, 255, 255, 0.08) inset,
+    0 10px 32px -12px rgba(0, 0, 0, 0.55);
+}
+
+.ios-glass-dock {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.84) 0%,
+    rgba(248, 250, 252, 0.72) 100%
+  );
+  -webkit-backdrop-filter: saturate(200%) blur(28px);
+  backdrop-filter: saturate(200%) blur(28px);
+  box-shadow:
+    0 1px 0 0 rgba(255, 255, 255, 0.85) inset,
+    0 -1px 0 0 rgba(15, 23, 42, 0.05),
+    0 14px 36px -8px rgba(0, 82, 255, 0.12);
+}
+
+.dark .ios-glass-dock {
+  background: linear-gradient(
+    135deg,
+    rgba(15, 23, 42, 0.84) 0%,
+    rgba(30, 41, 59, 0.72) 100%
+  );
+  -webkit-backdrop-filter: saturate(200%) blur(28px);
+  backdrop-filter: saturate(200%) blur(28px);
+  box-shadow:
+    0 1px 0 0 rgba(255, 255, 255, 0.1) inset,
+    0 14px 36px -8px rgba(0, 0, 0, 0.65);
+}
+
+.ios-glass-card {
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.92) 0%,
+    rgba(248, 250, 252, 0.78) 100%
+  );
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+  box-shadow:
+    0 1px 0 0 rgba(255, 255, 255, 0.9) inset,
+    0 10px 28px -10px rgba(15, 23, 42, 0.06);
+}
+
+.dark .ios-glass-card {
+  background: linear-gradient(
+    145deg,
+    rgba(15, 23, 42, 0.86) 0%,
+    rgba(30, 41, 59, 0.74) 100%
+  );
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+  box-shadow:
+    0 1px 0 0 rgba(255, 255, 255, 0.08) inset,
+    0 12px 30px -10px rgba(0, 0, 0, 0.5);
+}
+
+.ios-glass-drawer {
+  background: linear-gradient(
+    165deg,
+    rgba(255, 255, 255, 0.9) 0%,
+    rgba(241, 245, 249, 0.82) 100%
+  );
+  -webkit-backdrop-filter: saturate(200%) blur(32px);
+  backdrop-filter: saturate(200%) blur(32px);
+  box-shadow:
+    -1px 0 0 0 rgba(255, 255, 255, 0.75) inset,
+    20px 0 50px -10px rgba(15, 23, 42, 0.22);
+}
+
+.dark .ios-glass-drawer {
+  background: linear-gradient(
+    165deg,
+    rgba(15, 23, 42, 0.9) 0%,
+    rgba(2, 6, 23, 0.84) 100%
+  );
+  -webkit-backdrop-filter: saturate(200%) blur(32px);
+  backdrop-filter: saturate(200%) blur(32px);
+  box-shadow:
+    -1px 0 0 0 rgba(255, 255, 255, 0.1) inset,
+    20px 0 50px -10px rgba(0, 0, 0, 0.7);
+}
+
+/* Rich Ocean Blue with Dynamic Flowing Water Motion Effects */
+@keyframes oceanCurrentFlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes oceanSwirlOne {
+  0% {
+    transform: translate3d(-8%, -6%, 0) scale(1) rotate(0deg);
+  }
+  33% {
+    transform: translate3d(7%, 5%, 0) scale(1.12) rotate(6deg);
+  }
+  66% {
+    transform: translate3d(-4%, 9%, 0) scale(1.05) rotate(-5deg);
+  }
+  100% {
+    transform: translate3d(-8%, -6%, 0) scale(1) rotate(0deg);
+  }
+}
+
+@keyframes oceanSwirlTwo {
+  0% {
+    transform: translate3d(9%, 6%, 0) scale(1.08) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(-9%, -7%, 0) scale(0.96) rotate(-8deg);
+  }
+  100% {
+    transform: translate3d(9%, 6%, 0) scale(1.08) rotate(0deg);
+  }
+}
+
+@keyframes oceanWaveDrift {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(-25%, 6px, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes oceanWaveDriftReverse {
+  0% {
+    transform: translate3d(-50%, 0, 0);
+  }
+  50% {
+    transform: translate3d(-25%, -8px, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.ocean-water-canvas {
+  background: linear-gradient(
+    -45deg,
+    #021b4a 0%,
+    #00378a 26%,
+    #0052ff 54%,
+    #0077b6 78%,
+    #022c6f 100%
+  );
+  background-size: 280% 280%;
+  animation: oceanCurrentFlow 16s ease-in-out infinite;
+}
+
+.ocean-current-blob-1 {
+  background: radial-gradient(
+    circle at 35% 35%,
+    rgba(56, 189, 248, 0.36) 0%,
+    rgba(0, 119, 182, 0.18) 45%,
+    transparent 72%
+  );
+  filter: blur(36px);
+  animation: oceanSwirlOne 14s ease-in-out infinite;
+}
+
+.ocean-current-blob-2 {
+  background: radial-gradient(
+    circle at 65% 65%,
+    rgba(14, 165, 233, 0.34) 0%,
+    rgba(0, 82, 255, 0.22) 48%,
+    transparent 74%
+  );
+  filter: blur(42px);
+  animation: oceanSwirlTwo 18s ease-in-out infinite;
+}
+
+.ocean-wave-track-slow {
+  width: 200%;
+  animation: oceanWaveDrift 18s linear infinite;
+}
+
+.ocean-wave-track-fast {
+  width: 200%;
+  animation: oceanWaveDriftReverse 13s linear infinite;
+}
+
+/* iOS Fluid Glass Role Selection Buttons */
+.fluid-glass-role-btn {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.3) 0%,
+    rgba(255, 255, 255, 0.14) 55%,
+    rgba(186, 230, 253, 0.22) 100%
+  );
+  -webkit-backdrop-filter: saturate(200%) blur(26px);
+  backdrop-filter: saturate(200%) blur(26px);
+  border: 1px solid rgba(255, 255, 255, 0.48);
+  box-shadow:
+    0 1px 1px 0 rgba(255, 255, 255, 0.65) inset,
+    0 -1px 1px 0 rgba(186, 230, 253, 0.25) inset,
+    0 14px 34px -8px rgba(1, 22, 56, 0.42),
+    0 4px 12px -2px rgba(0, 82, 255, 0.28);
+  transition:
+    transform 240ms cubic-bezier(0.16, 1, 0.3, 1),
+    background 240ms cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 240ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 240ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.fluid-glass-role-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    115deg,
+    transparent 20%,
+    rgba(255, 255, 255, 0.32) 48%,
+    transparent 76%
+  );
+  transform: translateX(-120%);
+  transition: transform 650ms cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+.fluid-glass-role-btn:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.38) 0%,
+    rgba(255, 255, 255, 0.2) 55%,
+    rgba(186, 230, 253, 0.32) 100%
+  );
+  border-color: rgba(255, 255, 255, 0.72);
+  box-shadow:
+    0 1px 2px 0 rgba(255, 255, 255, 0.85) inset,
+    0 -1px 2px 0 rgba(186, 230, 253, 0.35) inset,
+    0 18px 40px -8px rgba(1, 22, 56, 0.5),
+    0 0 24px -2px rgba(56, 189, 248, 0.35);
+}
+
+.fluid-glass-role-btn:hover::before {
+  transform: translateX(120%);
+}
+
+/* ============================================================================
+   FLUID GLASS MATERIAL & WATER DROPLET RIPPLE PHYSICS (PDFs & EXAMS SECTIONS)
+   ============================================================================ */
+
+@keyframes waterDropletCrest {
+  0% {
+    transform: translate(-50%, -50%) scale(0.05);
+    opacity: 0.92;
+    border-width: 3.5px;
+  }
+  45% {
+    opacity: 0.65;
+    border-width: 2px;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(2.65);
+    opacity: 0;
+    border-width: 0.5px;
+  }
+}
+
+@keyframes waterDropletCapillary {
+  0% {
+    transform: translate(-50%, -50%) scale(0.02);
+    opacity: 0.78;
+  }
+  60% {
+    opacity: 0.42;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.95);
+    opacity: 0;
+  }
+}
+
+@keyframes waterDropletCoreFlash {
+  0% {
+    transform: translate(-50%, -50%) scale(0.15);
+    opacity: 0.85;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.35);
+    opacity: 0;
+  }
+}
+
+/* Base Fluid Glass Button Architecture */
+.fluid-glass-btn {
+  --droplet-x: 50%;
+  --droplet-y: 50%;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  -webkit-backdrop-filter: saturate(200%) blur(22px);
+  backdrop-filter: saturate(200%) blur(22px);
+  transition:
+    transform 260ms cubic-bezier(0.16, 1, 0.3, 1),
+    background 260ms cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 260ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 260ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Dynamic Pointer-Following Liquid Caustic Meniscus on Hover */
+.fluid-glass-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    130px circle at var(--droplet-x) var(--droplet-y),
+    rgba(255, 255, 255, 0.42) 0%,
+    rgba(125, 211, 252, 0.18) 42%,
+    transparent 78%
+  );
+  opacity: 0;
+  transition: opacity 240ms cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.fluid-glass-btn:hover::before,
+.fluid-glass-btn:focus-visible::before {
+  opacity: 1;
+}
+
+/* Specular Top-Edge Rim Reflection */
+.fluid-glass-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow:
+    0 1px 1.5px 0 rgba(255, 255, 255, 0.72) inset,
+    0 -1px 1px 0 rgba(56, 189, 248, 0.22) inset;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Variant 1: Ocean Cobalt Primary Fluid Glass (Get / Download / Start Exam / Subjects) */
+.fluid-glass-btn-primary {
+  background: linear-gradient(
+    135deg,
+    rgba(0, 82, 255, 0.84) 0%,
+    rgba(2, 132, 199, 0.76) 52%,
+    rgba(0, 64, 201, 0.88) 100%
+  );
+  color: #ffffff;
+  border: 1px solid rgba(186, 230, 253, 0.55);
+  box-shadow:
+    0 1px 2px 0 rgba(255, 255, 255, 0.55) inset,
+    0 10px 24px -6px rgba(0, 82, 255, 0.42),
+    0 2px 8px -1px rgba(14, 165, 233, 0.28);
+}
+
+.fluid-glass-btn-primary:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(14, 116, 255, 0.92) 0%,
+    rgba(14, 165, 233, 0.84) 52%,
+    rgba(0, 82, 255, 0.94) 100%
+  );
+  border-color: rgba(224, 242, 254, 0.85);
+  box-shadow:
+    0 1px 3px 0 rgba(255, 255, 255, 0.78) inset,
+    0 14px 30px -6px rgba(0, 82, 255, 0.54),
+    0 0 18px 0 rgba(56, 189, 248, 0.38);
+}
+
+/* Variant 2: Emerald Aqua Fluid Glass (Open Reader / Add Products / Publish) */
+.fluid-glass-btn-emerald {
+  background: linear-gradient(
+    135deg,
+    rgba(5, 150, 105, 0.86) 0%,
+    rgba(13, 148, 136, 0.78) 54%,
+    rgba(4, 120, 87, 0.9) 100%
+  );
+  color: #ffffff;
+  border: 1px solid rgba(167, 243, 208, 0.55);
+  box-shadow:
+    0 1px 2px 0 rgba(255, 255, 255, 0.55) inset,
+    0 10px 24px -6px rgba(5, 150, 105, 0.4),
+    0 2px 8px -1px rgba(20, 184, 166, 0.25);
+}
+
+.fluid-glass-btn-emerald:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(16, 185, 129, 0.92) 0%,
+    rgba(20, 184, 166, 0.84) 54%,
+    rgba(5, 150, 105, 0.94) 100%
+  );
+  border-color: rgba(209, 250, 229, 0.85);
+  box-shadow:
+    0 1px 3px 0 rgba(255, 255, 255, 0.78) inset,
+    0 14px 28px -6px rgba(5, 150, 105, 0.52),
+    0 0 18px 0 rgba(52, 211, 153, 0.36);
+}
+
+/* Variant 3: Crystal Frosted Surface Fluid Glass (Filters / Secondary Triggers / View Channel) */
+.fluid-glass-btn-surface {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.78) 0%,
+    rgba(240, 249, 255, 0.62) 55%,
+    rgba(224, 242, 254, 0.72) 100%
+  );
+  color: #0f172a;
+  border: 1px solid rgba(148, 163, 184, 0.38);
+  box-shadow:
+    0 1px 1.5px 0 rgba(255, 255, 255, 0.92) inset,
+    0 6px 18px -6px rgba(15, 23, 42, 0.08);
+}
+
+.fluid-glass-btn-surface:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.92) 0%,
+    rgba(224, 242, 254, 0.78) 55%,
+    rgba(186, 230, 253, 0.82) 100%
+  );
+  border-color: rgba(0, 82, 255, 0.45);
+  box-shadow:
+    0 1px 2px 0 rgba(255, 255, 255, 1) inset,
+    0 10px 24px -6px rgba(0, 82, 255, 0.16);
+}
+
+.dark .fluid-glass-btn-surface {
+  background: linear-gradient(
+    135deg,
+    rgba(30, 41, 59, 0.78) 0%,
+    rgba(15, 23, 42, 0.66) 55%,
+    rgba(30, 58, 138, 0.42) 100%
+  );
+  color: #f1f5f9;
+  border: 1px solid rgba(148, 163, 184, 0.26);
+  box-shadow:
+    0 1px 1.5px 0 rgba(255, 255, 255, 0.14) inset,
+    0 8px 20px -6px rgba(0, 0, 0, 0.5);
+}
+
+.dark .fluid-glass-btn-surface:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(51, 65, 85, 0.86) 0%,
+    rgba(30, 41, 59, 0.76) 55%,
+    rgba(37, 99, 235, 0.48) 100%
+  );
+  border-color: rgba(56, 189, 248, 0.5);
+}
+
+/* Variant 4: Active Selected Filter / Pill State in Fluid Glass */
+.fluid-glass-btn-active {
+  background: linear-gradient(
+    135deg,
+    rgba(2, 27, 74, 0.9) 0%,
+    rgba(0, 82, 255, 0.86) 60%,
+    rgba(2, 132, 199, 0.88) 100%
+  );
+  color: #ffffff;
+  border: 1px solid rgba(125, 211, 252, 0.72);
+  box-shadow:
+    0 1px 2px 0 rgba(255, 255, 255, 0.62) inset,
+    0 10px 24px -6px rgba(0, 82, 255, 0.45);
+}
+
+/* Variant 5: Header & Navigation Trigger Fluid Glass ("PDF Section", "Exams Section") */
+.fluid-glass-nav-trigger {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.65) 0%,
+    rgba(240, 249, 255, 0.42) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow:
+    0 1px 1px 0 rgba(255, 255, 255, 0.85) inset,
+    0 4px 12px -4px rgba(0, 82, 255, 0.12);
+}
+
+.dark .fluid-glass-nav-trigger {
+  background: linear-gradient(
+    135deg,
+    rgba(30, 41, 59, 0.68) 0%,
+    rgba(15, 23, 42, 0.52) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow:
+    0 1px 1px 0 rgba(255, 255, 255, 0.12) inset,
+    0 4px 12px -4px rgba(0, 0, 0, 0.45);
+}
+
+/* Water Droplet Ripple Elements Spawned at Touch/Click Coordinates */
+.water-droplet-crest {
+  position: absolute;
+  border-radius: 9999px;
+  pointer-events: none;
+  z-index: 3;
+  border-style: solid;
+  border-color: rgba(255, 255, 255, 0.85);
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.12) 0%,
+    rgba(125, 211, 252, 0.35) 58%,
+    rgba(255, 255, 255, 0.65) 72%,
+    transparent 76%
+  );
+  box-shadow:
+    0 0 14px 2px rgba(186, 230, 253, 0.55),
+    0 0 6px 1px rgba(255, 255, 255, 0.6) inset;
+  animation: waterDropletCrest 760ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.water-droplet-capillary {
+  position: absolute;
+  border-radius: 9999px;
+  pointer-events: none;
+  z-index: 3;
+  border: 1.5px solid rgba(186, 230, 253, 0.78);
+  background: radial-gradient(
+    circle,
+    transparent 45%,
+    rgba(255, 255, 255, 0.45) 68%,
+    transparent 74%
+  );
+  animation: waterDropletCapillary 640ms 90ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.water-droplet-core {
+  position: absolute;
+  border-radius: 9999px;
+  pointer-events: none;
+  z-index: 3;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(125, 211, 252, 0.55) 45%,
+    transparent 72%
+  );
+  animation: waterDropletCoreFlash 420ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Fluid Glass Item Cards for PDFs & Exams */
+.fluid-glass-item-card {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.88) 0%,
+    rgba(240, 249, 255, 0.74) 55%,
+    rgba(255, 255, 255, 0.84) 100%
+  );
+  -webkit-backdrop-filter: saturate(190%) blur(24px);
+  backdrop-filter: saturate(190%) blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  box-shadow:
+    0 1px 2px 0 rgba(255, 255, 255, 0.95) inset,
+    0 -1px 1px 0 rgba(186, 230, 253, 0.35) inset,
+    0 14px 34px -12px rgba(15, 23, 42, 0.1),
+    0 4px 12px -4px rgba(0, 82, 255, 0.06);
+  transition:
+    transform 280ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 280ms cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 280ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.fluid-glass-item-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(56, 189, 248, 0.65);
+  box-shadow:
+    0 1px 2px 0 rgba(255, 255, 255, 1) inset,
+    0 20px 42px -12px rgba(0, 82, 255, 0.16),
+    0 6px 16px -4px rgba(14, 165, 233, 0.14);
+}
+
+.dark .fluid-glass-item-card {
+  background: linear-gradient(
+    145deg,
+    rgba(15, 23, 42, 0.84) 0%,
+    rgba(30, 41, 59, 0.72) 55%,
+    rgba(15, 23, 42, 0.88) 100%
+  );
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  box-shadow:
+    0 1px 1.5px 0 rgba(255, 255, 255, 0.12) inset,
+    0 16px 36px -12px rgba(0, 0, 0, 0.6);
+}
+
+.dark .fluid-glass-item-card:hover {
+  border-color: rgba(56, 189, 248, 0.48);
+  box-shadow:
+    0 1px 2px 0 rgba(255, 255, 255, 0.2) inset,
+    0 20px 44px -10px rgba(0, 0, 0, 0.72),
+    0 0 22px -4px rgba(14, 165, 233, 0.28);
+}
+
+/* Fluid Glass Segmented Tab Rail & Gliding Active Indicator */
+.fluid-glass-tab-rail {
+  position: relative;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.74) 0%,
+    rgba(240, 249, 255, 0.56) 55%,
+    rgba(224, 242, 254, 0.68) 100%
+  );
+  -webkit-backdrop-filter: saturate(200%) blur(24px);
+  backdrop-filter: saturate(200%) blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  box-shadow:
+    0 1px 2px 0 rgba(255, 255, 255, 0.9) inset,
+    0 8px 24px -8px rgba(15, 23, 42, 0.08);
+}
+
+.dark .fluid-glass-tab-rail {
+  background: linear-gradient(
+    135deg,
+    rgba(15, 23, 42, 0.78) 0%,
+    rgba(30, 41, 59, 0.64) 55%,
+    rgba(15, 23, 42, 0.82) 100%
+  );
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  box-shadow:
+    0 1px 1.5px 0 rgba(255, 255, 255, 0.12) inset,
+    0 10px 28px -8px rgba(0, 0, 0, 0.55);
+}
+
+.fluid-glass-gliding-pill {
+  background: linear-gradient(
+    135deg,
+    rgba(0, 82, 255, 0.9) 0%,
+    rgba(2, 132, 199, 0.84) 52%,
+    rgba(3, 105, 161, 0.92) 100%
+  );
+  -webkit-backdrop-filter: saturate(210%) blur(18px);
+  backdrop-filter: saturate(210%) blur(18px);
+  border: 1px solid rgba(186, 230, 253, 0.78);
+  box-shadow:
+    0 1.5px 2px 0 rgba(255, 255, 255, 0.72) inset,
+    0 -1px 2px 0 rgba(56, 189, 248, 0.4) inset,
+    0 8px 22px -4px rgba(0, 82, 255, 0.48),
+    0 0 16px -2px rgba(56, 189, 248, 0.35);
+}
+
+/* Sliding Liquid Droplet Glider Pill (Morphing Filter Selection Indicator) */
+.fluid-glass-droplet-glider {
+  background:
+    radial-gradient(
+      95% 90% at 30% 15%,
+      rgba(255, 255, 255, 0.42) 0%,
+      rgba(125, 211, 252, 0.22) 38%,
+      rgba(0, 82, 255, 0) 75%
+    ),
+    linear-gradient(
+      135deg,
+      rgba(0, 82, 255, 0.92) 0%,
+      rgba(2, 132, 199, 0.88) 54%,
+      rgba(37, 99, 235, 0.95) 100%
+    );
+  -webkit-backdrop-filter: saturate(220%) blur(22px);
+  backdrop-filter: saturate(220%) blur(22px);
+  border: 1px solid rgba(186, 230, 253, 0.88);
+  box-shadow:
+    0 1.5px 2.5px 0 rgba(255, 255, 255, 0.86) inset,
+    0 -1.5px 3px 0 rgba(56, 189, 248, 0.5) inset,
+    0 8px 24px -3px rgba(0, 82, 255, 0.54),
+    0 0 18px -1px rgba(56, 189, 248, 0.44);
+}
+
+/* Unselected Filter Chip Surface inside Sliding Droplet Group */
+.fluid-glass-filter-chip {
+  position: relative;
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.68) 0%,
+    rgba(240, 249, 255, 0.48) 100%
+  );
+  -webkit-backdrop-filter: saturate(180%) blur(16px);
+  backdrop-filter: saturate(180%) blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.78);
+  box-shadow:
+    0 1px 1.5px 0 rgba(255, 255, 255, 0.85) inset,
+    0 3px 10px -4px rgba(15, 23, 42, 0.06);
+  transition:
+    color 160ms ease,
+    border-color 160ms ease,
+    background-color 160ms ease;
+}
+
+.fluid-glass-filter-chip:hover {
+  border-color: rgba(56, 189, 248, 0.55);
+}
+
+.dark .fluid-glass-filter-chip {
+  background: linear-gradient(
+    145deg,
+    rgba(30, 41, 59, 0.65) 0%,
+    rgba(15, 23, 42, 0.55) 100%
+  );
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  box-shadow:
+    0 1px 1px 0 rgba(255, 255, 255, 0.1) inset,
+    0 4px 12px -4px rgba(0, 0, 0, 0.45);
+}
+
+
+
+

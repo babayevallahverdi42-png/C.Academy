@@ -1,0 +1,6 @@
+{
+  "name": "C. ACADEMY",
+  "description": "Protected Academic Publishing, Interactive Examination, and Multi-Role Educational Marketplace Platform with Advanced Anti-Piracy Security.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
